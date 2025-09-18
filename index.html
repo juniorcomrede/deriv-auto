@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deriv Multiplier Pro — Automated News Trading | Ultra-Fast .EXE</title>
+  <meta name="description" content="Automate your trading on Deriv with the Deriv Multiplier Auto-Entry Trader. Execute lightning-fast trades on news releases with precision. Free Windows .exe download." />
+
+  <meta property="og:title" content="Deriv Multiplier Pro | Automated News Trading" />
+  <meta property="og:description" content="Capture instant market volatility on Deriv with our professional-grade automated trader. Precision, speed, and safety in one powerful tool." />
+  <meta property="og:image" content="https://www.yourdomain.com/og-image.png" />
+  <meta property="og:url" content="https://www.yourdomain.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ---------------------- Global & Variables ---------------------- */
+    :root {
+      --color-primary: #f0f0f5;
+      --color-secondary: #a0a0b0;
+      --color-bg-dark: #0a0a0f;
+      --color-bg-card: #14141c;
+      --color-border: #2a2a35;
+      --color-accent-blue: #0077ff;
+      --color-accent-red: #ff3b4d;
+      --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --glass-bg: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glow-blue: 0 0 25px rgba(0, 119, 255, 0.6);
+      --transition-ease: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --transition-fast: 0.2s ease-in-out;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--color-bg-dark);
+      color: var(--color-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ---------------------- Hero Section ---------------------- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 0;
+      overflow: hidden;
+    }
+    .hero-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding-top: 4rem;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .hero-left .eyebrow {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent-blue);
+      text-shadow: 0 0 5px rgba(0, 119, 255, 0.4);
+      opacity: 0;
+      animation: fadeIn 1s forwards var(--transition-ease);
+    }
+    .hero-left h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      opacity: 0;
+      animation: fadeIn 1s forwards 0.2s;
+    }
+    .hero-left p {
+      font-size: 1.15rem;
+      color: var(--color-secondary);
+      max-width: 500px;
+      opacity: 0;
+      animation: fadeIn 1s forwards 0.4s;
+    }
+    .cta-container {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeIn 1s forwards 0.6s;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.9rem 2.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all var(--transition-fast);
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--color-accent-red);
+      color: var(--color-primary);
+      box-shadow: 0 4px 15px rgba(255, 59, 77, 0.4);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 150%;
+      height: 150%;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -50%) rotate(45deg);
+      transition: all 0.5s ease-out;
+      z-index: -1;
+    }
+    .btn-primary:hover::before {
+      transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+      opacity: 0;
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-secondary);
+      transition: all var(--transition-fast);
+    }
+    .btn-secondary:hover {
+      border-color: var(--color-accent-blue);
+      color: var(--color-primary);
+      box-shadow: 0 0 10px rgba(0, 119, 255, 0.4);
+    }
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      perspective: 1000px;
+      transform: scale(0.8);
+      opacity: 0;
+      animation: scaleIn 1s forwards 0.8s;
+    }
+    .mockup-card {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      border-radius: 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(15px);
+      box-shadow: var(--shadow-soft), var(--glow-blue);
+      transform-style: preserve-3d;
+      transition: transform var(--transition-ease);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .mockup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .mockup-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .mockup-status {
+      background: var(--color-accent-blue);
+      color: var(--color-primary);
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 5px;
+    }
+    .mockup-content {
+      background: var(--color-bg-dark);
+      border-radius: 10px;
+      flex-grow: 1;
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-secondary);
+    }
+
+    /* ---------------------- Logo SVG & Animations ---------------------- */
+    .logo-container {
+      position: relative;
+      z-index: 2;
+      animation: logoScaleIn 1s forwards;
+    }
+    #logo-svg {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+    }
+    #logo-svg rect {
+      animation: svgGradientShift 6s ease-in-out infinite alternate;
+    }
+    @keyframes svgGradientShift {
+      0% { fill: url(#lg1); }
+      100% { fill: url(#lg1-alt); }
+    }
+    #logo-svg #arrow {
+      fill: #fff;
+      animation: arrowPulse 2s ease-in-out infinite alternate;
+    }
+    @keyframes arrowPulse {
+      from { transform: scale(1.1) translate(2px, 2px); }
+      to { transform: scale(1.2) translate(2px, 2px); }
+    }
+    @keyframes logoScaleIn {
+      from { transform: scale(0.86); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* ---------------------- Features Section ---------------------- */
+    .features {
+      background: linear-gradient(180deg, var(--color-bg-dark), #0f0f15);
+      position: relative;
+      z-index: 1;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .feature-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--transition-ease), box-shadow var(--transition-ease);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 40px rgba(0, 119, 255, 0.2);
+    }
+    .feature-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-accent-blue);
+    }
+    .feature-card p {
+      color: var(--color-secondary);
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--color-accent-blue);
+      text-shadow: var(--glow-blue);
+    }
+
+    /* ---------------------- Footer & Other Elements ---------------------- */
+    .footer {
+      text-align: center;
+      padding: 3rem 0;
+      border-top: 1px solid var(--color-border);
+      color: var(--color-secondary);
+      font-size: 0.9rem;
+    }
+    .footer a {
+      color: var(--color-secondary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    .footer a:hover {
+      color: var(--color-primary);
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    /* ---------------------- Mobile Responsiveness ---------------------- */
+    @media (max-width: 992px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        padding-top: 2rem;
+      }
+      .hero-left {
+        text-align: center;
+        order: 2;
+      }
+      .hero-right {
+        order: 1;
+      }
+      .cta-container {
+        justify-content: center;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-left h1, .hero-left p, .cta-container, .hero-left .eyebrow, .hero-right, .feature-card, .logo-container, .btn-primary::before {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .hero-particles {
+        display: none;
+      }
+    }
+
+    /* ---------------------- Keyframe Animations ---------------------- */
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes scaleIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Deriv Multiplier Auto-Entry Trader",
+    "operatingSystem": "Windows",
+    "applicationCategory": "FinancialApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "url": "https://www.yourdomain.com",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1e4eAgvbg1ArIFVvKW5m7j1LSR6ZdKQIl",
+    "description": "An automated trading application for Deriv multipliers, designed for fast execution on news releases.",
+    "softwareRequirements": "Windows OS",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.yourdomain.com"
+    },
+    "image": "https://www.yourdomain.com/og-image.png"
+  }
+  </script>
+
+  <section class="hero">
+    <canvas class="hero-particles" id="hero-particles"></canvas>
+    <div class="container hero-content">
+      <div class="hero-left">
+        <span class="eyebrow">PREMIUM RELEASE</span>
+        <h1>Automate Your News Trading <br/> on <span>Deriv</span>.</h1>
+        <p>Capture instant market volatility with a professional-grade automated trader. Precision, speed, and safety in one powerful tool.</p>
+        <div class="cta-container">
+          <a href="https://drive.google.com/uc?export=download&id=1e4eAgvbg1ArIFVvKW5m7j1LSR6ZdKQIl" class="btn btn-primary" aria-label="Download for Windows">Download for Windows — Free</a>
+          <a href="#features" class="btn btn-secondary" aria-label="Learn about features">Learn More</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="mockup-card" id="mockup-card">
+          <div class="mockup-header">
+            <div class="logo-container">
+              <svg id="logo-svg" width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle logoDesc">
+                <title id="logoTitle">Deriv Najey logo</title>
+                <desc id="logoDesc">Rounded square with stylized arrow and the text DERIV NAJEY</desc>
+
+                <defs>
+                  <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ff5f6d"/>
+                    <stop offset="50%" stop-color="#ff3b4d"/>
+                    <stop offset="100%" stop-color="#d6142b"/>
+                  </linearGradient>
+                  <linearGradient id="lg1-alt" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ff3b4d"/>
+                    <stop offset="50%" stop-color="#d6142b"/>
+                    <stop offset="100%" stop-color="#ff5f6d"/>
+                  </linearGradient>
+                  <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="6" result="b"/>
+                    <feMerge>
+                      <feMergeNode in="b"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                <rect x="2" y="2" width="136" height="136" rx="22" ry="22" fill="url(#lg1)"></rect>
+
+                <g transform="translate(18,28)">
+                  <path id="arrow" d="M0,24 L18,12 L0,0 L0,9 L10,12 L0,15 Z" fill="#fff" transform="scale(2.2) translate(2,2)"></path>
+                </g>
+
+                <g transform="translate(52,34)">
+                  <text x="0" y="22" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="22" fill="#fff">DERIV</text>
+                  <text x="0" y="52" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="22" fill="#fff">NAJEY</text>
+                </g>
+              </svg>
+            </div>
+            <span class="mockup-status">LIVE</span>
+          </div>
+          <div class="mockup-content">
+            <p>ARMED - Awaiting Trigger</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <h2 class="section-title">Engineered for Performance</h2>
+      <div class="features-grid">
+        <div class="feature-card" style="animation-delay: 0.1s;">
+          <div class="feature-icon">⚡️</div>
+          <h3>Lightning-Fast Execution</h3>
+          <p>Utilizes the Deriv WebSocket API for near-instant order placement, ensuring you enter the market at the perfect moment.</p>
+        </div>
+        <div class="feature-card" style="animation-delay: 0.2s;">
+          <div class="feature-icon">📊</div>
+          <h3>Dynamic Triggering</h3>
+          <p>Set a precise pips threshold. The app intelligently waits for a confirmed breakout before executing a trade.</p>
+        </div>
+        <div class="feature-card" style="animation-delay: 0.3s;">
+          <div class="feature-icon">🛡️</div>
+          <h3>Integrated Risk Management</h3>
+          <p>Seamlessly applies Take Profit and Stop Loss orders the moment a trade is opened for automated risk control.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Deriv Multiplier Pro. All Rights Reserved.</p>
+      <p>
+        <a href="https://github.com/" target="_blank">View on GitHub</a> |
+        <a href="#">Privacy Disclaimer</a>
+      </p>
+      <p style="margin-top: 1rem; color: var(--color-secondary);">
+        <small><strong>Disclaimer:</strong> Trade on a demo account first. Use at your own risk. Not financial advice.</small>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // ---------------------- CTA & UI Tracking ----------------------
+      const downloadBtn = document.querySelector('.btn-primary');
+      downloadBtn.addEventListener('click', () => {
+        console.log('Download button clicked.');
+        // Optional: add analytics event here
+      });
+
+      // ---------------------- Parallax & Tilt Effect ----------------------
+      const mockupCard = document.getElementById('mockup-card');
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReducedMotion) {
+        document.addEventListener('mousemove', (e) => {
+          const rect = mockupCard.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const maxTilt = 10;
+          const tiltX = (e.clientY - centerY) / (window.innerHeight / 2) * maxTilt;
+          const tiltY = (e.clientX - centerX) / (window.innerWidth / 2) * maxTilt;
+          
+          mockupCard.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+          mockupCard.style.boxShadow = `
+            ${-tiltY/2}px ${-tiltX/2}px 30px rgba(0,0,0,0.5),
+            ${-tiltY/4}px ${-tiltX/4}px 25px rgba(0, 119, 255, 0.4)
+          `;
+        });
+      } else {
+        // Fallback for reduced motion
+        mockupCard.style.transform = 'none';
+      }
+
+      // ---------------------- Hero Particle Animation (Canvas) ----------------------
+      const canvas = document.getElementById('hero-particles');
+      if (canvas && !prefersReducedMotion) {
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const numParticles = window.innerWidth > 768 ? 100 : 50;
+
+        function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+          constructor(x, y) {
+            this.x = x || Math.random() * canvas.width;
+            this.y = y || Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.speedY = Math.random() * 0.5 - 0.25;
+            this.opacity = Math.random() * 0.4;
+          }
+          update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+            if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+          }
+          draw() {
+            ctx.fillStyle = `rgba(0, 119, 255, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        function init() {
+          particles = [];
+          for (let i = 0; i < numParticles; i++) {
+            particles.push(new Particle());
+          }
+        }
+
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+          }
+          requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        init();
+        animate();
+      }
+    });
+  </script>
+
+</body>
+</html>
