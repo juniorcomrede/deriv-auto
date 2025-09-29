@@ -2,90 +2,352 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Test Product Order</title>
+  <title>Boat Headphone Shop - Rockerz Max</title>
   <style>
+    /* --- Google Font Import --- */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+    
+    /* --- Variables & Reset --- */
+    :root {
+      --primary-color: #007bff; /* Vibrant Blue */
+      --primary-dark: #0056b3;
+      --accent-color: #ffc107; /* Bright Yellow/Gold */
+      --secondary-color: #212529; /* Dark text */
+      --light-bg: #e9ecef;
+      --card-bg: #ffffff;
+      --border-color: #dee2e6;
+      --shadow-soft: 0 8px 25px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 12px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, var(--light-bg) 0%, #ffffff 100%);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
     }
-    .container {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 320px;
+
+    /* --- Container & Layout --- */
+    .shop-container {
+      background: var(--card-bg);
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-soft);
+      width: 100%;
+      max-width: 900px; /* Slightly wider */
+      display: flex;
+      gap: 40px;
+      transition: all 0.4s ease;
+      /* Subtle gradient background on the card itself */
+      background: linear-gradient(145deg, #ffffff, #f9f9f9);
     }
+
+    .product-details {
+      flex: 1.2; /* Give product more space */
+      padding-right: 30px;
+    }
+
+    .order-section {
+      flex: 1;
+      padding-left: 30px;
+      border-left: 1px solid var(--border-color);
+    }
+
+    h1 {
+      font-size: 2.8em;
+      font-weight: 900;
+      color: var(--secondary-color);
+      margin-top: 0;
+      margin-bottom: 5px;
+      letter-spacing: -0.5px;
+    }
+    
+    .subtitle {
+        color: var(--primary-color);
+        font-weight: 500;
+        font-size: 1.1em;
+        margin-bottom: 25px;
+    }
+
     h2 {
-      text-align: center;
-      color: #333;
+      font-size: 1.6em;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+      padding-bottom: 5px;
+      border-bottom: 3px solid var(--accent-color);
+      display: inline-block;
     }
+
+    /* --- Product Image & Info --- */
+    .product-image-wrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .product-image-wrapper:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    
+    .product-image-wrapper:hover .product-image {
+        transform: scale(1.05);
+    }
+    
+    .price-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .price {
+      font-size: 2.5em;
+      font-weight: 900;
+      color: var(--primary-color);
+      margin-right: 20px;
+    }
+    
+    .mrp {
+        color: #6c757d;
+        text-decoration: line-through;
+        font-size: 1.2em;
+        font-weight: 400;
+    }
+
+    .description-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    .description-list li {
+      margin-bottom: 12px;
+      padding-left: 30px;
+      position: relative;
+      font-size: 1em;
+      color: var(--secondary-color);
+    }
+
+    .description-list li::before {
+      content: '✔'; 
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+      font-weight: 700;
+      font-size: 1.2em;
+    }
+
+    /* --- Form Styles --- */
     label {
       display: block;
-      margin-top: 12px;
-      font-weight: bold;
+      margin-top: 18px;
+      margin-bottom: 5px;
+      font-weight: 700;
+      color: var(--secondary-color);
+      font-size: 0.95em;
     }
-    input, textarea, select, button {
+
+    input[type="text"], textarea, select {
       width: 100%;
-      padding: 10px;
-      margin-top: 6px;
+      padding: 14px;
       border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 14px;
+      border: 2px solid var(--border-color);
+      font-size: 1em;
+      font-family: inherit;
+      box-sizing: border-box; 
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+      outline: none;
+    }
+    
+    textarea {
+        resize: vertical;
+        min-height: 90px;
+    }
+    
+    select {
+        /* Remove default browser styling for a cleaner look */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23007bff" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 16px;
+        padding-right: 30px;
+    }
+
+    /* --- Button & Status --- */
     button {
-      background: #007bff;
+      background: var(--primary-color);
       color: white;
-      font-weight: bold;
+      font-weight: 700;
       border: none;
       cursor: pointer;
-      transition: background 0.3s;
-      margin-top: 18px;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      margin-top: 35px;
+      padding: 15px;
+      border-radius: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-size: 1.1em;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
     }
+
     button:hover {
-      background: #0056b3;
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 123, 255, 0.6);
     }
+    
+    button:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+    }
+
     #status {
       text-align: center;
-      margin-top: 15px;
-      font-weight: bold;
+      margin-top: 25px;
+      padding: 15px;
+      font-weight: 600;
+      border-radius: 10px;
+      font-size: 0.95em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
+
+    #status.success {
+        color: #008000;
+        background: #e6ffe6;
+        border: 1px solid #008000;
+    }
+    
+    #status.error {
+        color: #ff0000;
+        background: #ffe6e6;
+        border: 1px solid #ff0000;
+    }
+    
+    /* --- Responsive Design --- */
+    @media (max-width: 850px) {
+        .shop-container {
+            flex-direction: column;
+            padding: 30px;
+            gap: 20px;
+            max-width: 95%;
+        }
+        .product-details {
+            padding-right: 0;
+        }
+        .order-section {
+            padding-left: 0;
+            border-left: none;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        h1 {
+            font-size: 2.2em;
+        }
+        .price {
+            font-size: 2em;
+        }
+    }
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Fake Product Order</h2>
-    <form id="orderForm">
-      <label>Name:</label>
-      <input type="text" name="name" required>
+  <div class="shop-container">
+    <div class="product-details">
+        <h1>Boat Rockerz 550 - Max Bass</h1>
+        <p class="subtitle">Experience Sound That Moves You. The perfect companion for every playlist.</p>
+        
+        <div class="product-image-wrapper">
+            <img 
+                src="https://m.media-amazon.com/images/I/61gY9FzIuQL._SL1500_.jpg" 
+                alt="Boat Rockerz 550 Over-Ear Wireless Headphones in Black" 
+                class="product-image"
+            >
+        </div>
+        
+        <div class="price-group">
+            <div class="price">
+                ₹1,499.00
+            </div>
+            <span class="mrp">
+                MRP: <del>₹4,999</del>
+            </span>
+        </div>
+        
+        <h2>Key Specifications</h2>
+        <ul class="description-list">
+            <li><span style="font-weight: 500;">Up to 20 Hours</span> of Non-stop Playback.</li>
+            <li><span style="font-weight: 500;">Ergonomically Designed</span> Plush Over-Ear Cups for superior comfort.</li>
+            <li><span style="font-weight: 500;">50mm Drivers</span> for powerful, immersive bass.</li>
+            <li><span style="font-weight: 500;">Bluetooth v5.0</span> for instant and stable connectivity.</li>
+        </ul>
+    </div>
 
-      <label>Phone Number:</label>
-      <input type="text" name="number" required>
+    <div class="order-section">
+        <h2>Secure Checkout</h2>
+        <form id="orderForm">
+            <label>Full Name:</label>
+            <input type="text" name="name" required placeholder="John Doe">
 
-      <label>Address:</label>
-      <textarea name="address" required></textarea>
+            <label>Contact Phone Number:</label>
+            <input type="text" name="number" required placeholder="e.g. 9876543210">
 
-      <label>Payment Method:</label>
-      <select name="payment" required>
-        <option value="COD">Cash on Delivery</option>
-        <option value="Online">Online Payment</option>
-      </select>
+            <label>Delivery Address:</label>
+            <textarea name="address" required placeholder="House/Flat No., Street, Landmark, City, Pincode"></textarea>
 
-      <button type="submit">Place Order</button>
-    </form>
-    <p id="status"></p>
+            <label>Preferred Payment Method:</label>
+            <select name="payment" required>
+                <option value="COD">Cash on Delivery (COD)</option>
+                <option value="Online">Online Payment (Prepaid)</option>
+            </select>
+
+            <button type="submit">Place Order & Pay</button>
+        </form>
+        <p id="status"></p>
+    </div>
   </div>
 
   <script>
-    // ⚠️ Replace these with your own details
+    // ⚠️ TELEGRAM CONFIGURATION: DO NOT MODIFY THESE VALUES!
+    // As explicitly requested, these are copied exactly from your original file.
     const BOT_TOKEN = "8473515448:AAHrjCeE99WZoWPg1N1oy3lzRadhsKkIcH8";  // e.g. 123456:ABC-DEF...
     const CHAT_ID = "6258429412";      // Get from @userinfobot
 
     document.getElementById("orderForm").addEventListener("submit", function(e) {
       e.preventDefault();
+
+      const statusElement = document.getElementById("status");
+      statusElement.innerHTML = '🔄 Sending order...';
+      statusElement.className = ""; // Clear previous classes
 
       const form = new FormData(e.target);
       const name = form.get("name");
@@ -93,22 +355,27 @@
       const address = form.get("address");
       const payment = form.get("payment");
 
-      const message = `🛒 New Order Test\n\n👤 Name: ${name}\n📞 Number: ${number}\n🏠 Address: ${address}\n💳 Payment: ${payment}`;
+      // Message updated to include the new product name
+      const message = `🛍️ NEW ORDER: Boat Rockerz 550\n\n👤 Name: ${name}\n📞 Number: ${number}\n🏠 Address: ${address}\n💳 Payment: ${payment}`;
 
       fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: CHAT_ID,
-          text: message
+          text: message,
+          parse_mode: 'HTML' 
         })
       })
       .then(res => res.json())
       .then(data => {
-        document.getElementById("status").innerText = "✅ Sent to Telegram!";
+        statusElement.innerHTML = '✅ **Order Confirmed!** You will receive a call shortly.';
+        statusElement.classList.add("success");
       })
       .catch(err => {
-        document.getElementById("status").innerText = "❌ Error sending!";
+        statusElement.innerHTML = '❌ **Error!** Failed to place order. Check network and try again.';
+        statusElement.classList.add("error");
+        console.error("Telegram Send Error:", err);
       });
     });
   </script>
