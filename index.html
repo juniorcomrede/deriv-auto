@@ -1,174 +1,116 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Test Mini Store — Telegram Order Demo</title>
+  <meta charset="UTF-8">
+  <title>Test Product Order</title>
   <style>
-    :root{--accent:#ff5a5f;--muted:#666;--card:#fff}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0; background:#f6f7fb; color:#111}
-    .container{max-width:520px;margin:28px auto;padding:18px}
-    .card{background:var(--card);border-radius:14px;padding:18px;box-shadow:0 6px 18px rgba(20,20,50,0.06)}
-    .hero{display:flex;gap:16px}
-    img.prod{width:150px;height:150px;object-fit:cover;border-radius:10px}
-    h1{font-size:18px;margin:0}
-    .price{font-weight:700;color:var(--accent);font-size:20px}
-    .mrp{color:var(--muted);text-decoration:line-through;margin-left:8px;font-weight:500}
-    .badge{display:inline-block;background:#fff;border-radius:8px;padding:6px 10px;margin-top:8px;font-size:13px;box-shadow:0 3px 8px rgba(20,20,50,0.04)}
-    form{margin-top:14px}
-    input, textarea, select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e7ee;margin-top:8px;font-size:15px;box-sizing:border-box}
-    .row{display:flex;gap:10px}
-    .row > *{flex:1}
-    button.cta{background:var(--accent);color:#fff;border:none;padding:12px 16px;border-radius:10px;font-size:16px;margin-top:12px;width:100%}
-    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted);font-size:13px}
-    .small{font-size:13px;color:var(--muted);margin-top:6px}
-    .notice{background:#fff8f4;border-left:4px solid #ffd1b3;padding:10px;border-radius:8px;margin-top:12px}
-    .preview{white-space:pre-wrap;background:#f3f4f8;padding:12px;border-radius:8px;margin-top:12px}
-    .success{background:#ecffef;border-left:4px solid #b9f0c6;padding:10px;border-radius:8px;margin-top:12px}
-    .danger{background:#ffeeee;border-left:4px solid #ffb3b3;padding:10px;border-radius:8px;margin-top:12px}
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input, textarea, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 18px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #status {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="card">
-      <div class="hero">
-        <img class="prod" src="https://via.placeholder.com/300x300.png?text=Test+Combo" alt="product">
-        <div>
-          <h1 id="product-name">Aloe Vera Face Cream Combo (Test)</h1>
-          <div style="margin-top:8px">
-            <span class="price">₹<span id="sale-price">249</span></span>
-            <span class="mrp">₹<span id="mrp">999</span></span>
-          </div>
-          <div class="badge">COD Available • Free Delivery</div>
-          <div class="small" id="stock-text">Only <strong id="stock-count">12</strong> left at this price</div>
-          <div class="small" id="countdown">Deal ends in <strong id="timer">03:00:00</strong></div>
-        </div>
-      </div>
+    <h2>Fake Product Order</h2>
+    <form id="orderForm">
+      <label>Name:</label>
+      <input type="text" name="name" required>
 
-      <form id="order-form" onsubmit="event.preventDefault();handleSubmit();">
-        <input type="text" id="name" placeholder="Your name (for delivery)" required />
-        <input type="tel" id="phone" placeholder="Phone number (WhatsApp/Call)" required />
-        <textarea id="address" placeholder="Full delivery address (house, street, city, pincode)" rows="3" required></textarea>
+      <label>Phone Number:</label>
+      <input type="text" name="number" required>
 
-        <div class="row" style="margin-top:8px">
-          <select id="payment">
-            <option value="COD">Cash on Delivery (COD)</option>
-            <option value="Prepaid">Prepaid (not implemented in test)</option>
-          </select>
-          <input type="number" id="qty" value="1" min="1" placeholder="Qty" />
-        </div>
+      <label>Address:</label>
+      <textarea name="address" required></textarea>
 
-        <button class="cta" type="submit">🔥 ORDER NOW (Test Mode)</button>
+      <label>Payment Method:</label>
+      <select name="payment" required>
+        <option value="COD">Cash on Delivery</option>
+        <option value="Online">Online Payment</option>
+      </select>
 
-        <div class="meta">
-          <div id="test-mode-note" style="color:#333;font-weight:600">TEST MODE: ON</div>
-          <div style="font-size:13px;color:var(--muted)">Prototype • No payment collected</div>
-        </div>
-
-        <div id="message-area"></div>
-      </form>
-    </div>
-
-    <p style="text-align:center;margin-top:12px;color:var(--muted)">This is a <strong>test</strong> demo page for your GitHub Pages → Telegram bot flow.</p>
-    <div class="card" style="margin-top:12px">
-      <h3 style="margin:0">Developer Notes</h3>
-      <div class="small" style="margin-top:8px">
-        - This page runs in <strong>TEST MODE</strong> by default (no external calls).<br>
-        - To enable real Telegram notifications: edit <code>TEST_MODE</code>, set <code>BOT_TOKEN</code> & <code>CHAT_ID</code> in the JS below. (Not recommended for public pages without a server proxy.)
-      </div>
-    </div>
+      <button type="submit">Place Order</button>
+    </form>
+    <p id="status"></p>
   </div>
 
-<script>
-/* ===== CONFIG - edit only for a real test (NOT RECOMMENDED on public pages) ===== */
-const TEST_MODE = true;   // true = show preview only; false = attempt to send to Telegram
-const BOT_TOKEN = 'REPLACE_WITH_BOT_TOKEN'; // e.g. 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
-const CHAT_ID = 'REPLACE_WITH_CHAT_ID';     // your Telegram chat id
-/* ============================================================================ */
+  <script>
+    // ⚠️ Replace these with your own details
+    const BOT_TOKEN = "8473515448:AAHrjCeE99WZoWPg1N1oy3lzRadhsKkIcH8";  // e.g. 123456:ABC-DEF...
+    const CHAT_ID = "6258429412";      // Get from @userinfobot
 
-let stock = 12;
-const salePrice = 249;
-const mrp = 999;
-const productName = document.getElementById('product-name').innerText;
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-document.getElementById('sale-price').innerText = salePrice;
-document.getElementById('mrp').innerText = mrp;
-document.getElementById('stock-count').innerText = stock;
+      const form = new FormData(e.target);
+      const name = form.get("name");
+      const number = form.get("number");
+      const address = form.get("address");
+      const payment = form.get("payment");
 
-// Simple countdown timer (starts at 3 hours)
-let secondsLeft = 3 * 60 * 60;
-function tick() {
-  if(secondsLeft <= 0) { document.getElementById('timer').innerText = "00:00:00"; return; }
-  secondsLeft--;
-  const h = String(Math.floor(secondsLeft / 3600)).padStart(2,'0');
-  const m = String(Math.floor((secondsLeft % 3600) / 60)).padStart(2,'0');
-  const s = String(secondsLeft % 60).padStart(2,'0');
-  document.getElementById('timer').innerText = h+':'+m+':'+s;
-}
-setInterval(tick,1000);
+      const message = `🛒 New Order Test\n\n👤 Name: ${name}\n📞 Number: ${number}\n🏠 Address: ${address}\n💳 Payment: ${payment}`;
 
-// Helper: show messages in page
-function showMessage(html, cls='preview') {
-  const area = document.getElementById('message-area');
-  area.innerHTML = '<div class="'+cls+'">'+html+'</div>';
-}
-
-// Handle form submit
-function handleSubmit(){
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const address = document.getElementById('address').value.trim();
-  const payment = document.getElementById('payment').value;
-  const qty = parseInt(document.getElementById('qty').value) || 1;
-
-  if(!name || !phone || !address){ showMessage('Please fill all fields.', 'danger'); return; }
-  if(stock <= 0){ showMessage('Sorry, item is out of stock at this price.', 'danger'); return; }
-
-  const total = salePrice * qty;
-  const messageText = `📦 New Test Order!\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n💰 Payment: ${payment}\n🛒 Product: ${productName}\n🔢 Qty: ${qty}\n💵 Total: ₹${total}`;
-
-  if(TEST_MODE){
-    showMessage('<strong>Order preview (TEST MODE)</strong>\n\n'+messageText, 'preview');
-    // simulate stock decrement for test
-    stock = Math.max(0, stock - 1);
-    document.getElementById('stock-count').innerText = stock;
-    // show confirmation box
-    setTimeout(()=> showMessage('✅ Order placed (simulated). You will receive the order details in Telegram when TEST_MODE=false.', 'success'), 800);
-    return;
-  }
-
-  // REAL MODE: attempt to send to Telegram (note: exposing BOT_TOKEN in client side is insecure for production)
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-  const payload = {
-    chat_id: CHAT_ID,
-    text: messageText
-  };
-
-  // Try POST JSON first (may fail due to CORS on some browsers)
-  fetch(url, {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(payload)
-  })
-  .then(r => r.json())
-  .then(data => {
-    if(data && data.ok){
-      showMessage('✅ Order sent to Telegram. Place the Meesho order now. (Manual fulfillment)', 'success');
-      stock = Math.max(0, stock - 1);
-      document.getElementById('stock-count').innerText = stock;
-    } else {
-      showMessage('Telegram API responded but did not confirm sending. Response: ' + JSON.stringify(data), 'danger');
-    }
-  })
-  .catch(err => {
-    // Fallback: open GET link (may also expose token in URL)
-    const q = encodeURIComponent(messageText);
-    const getUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${q}`;
-    window.open(getUrl, '_blank');
-    showMessage('⚠️ POST failed (possible CORS). A GET window was opened as fallback. If that succeeded, check Telegram. Otherwise use a server-side proxy for reliability.', 'notice');
-    console.error(err);
-  });
-}
-</script>
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("status").innerText = "✅ Sent to Telegram!";
+      })
+      .catch(err => {
+        document.getElementById("status").innerText = "❌ Error sending!";
+      });
+    });
+  </script>
 </body>
 </html>
