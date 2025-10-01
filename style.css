@@ -247,6 +247,19 @@ header p {
     border-radius: 4px; 
     text-align: center; 
 }
+.nomed {
+    color: #000000;
+    font-size: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    background-color: #5deb8c;
+}
+.NOMEDA {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 12px;
+    background-color: grey;
+    color: white;
+}
 
 /* =========================== */
 /* MOBILE OPTIMIZATION         */
