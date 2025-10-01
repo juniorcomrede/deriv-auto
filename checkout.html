@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Cash on Delivery</title>
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* ============================================== */
+        /* DARK THEME STYLING (To ensure consistency) */
+        /* ============================================== */
+        :root {
+            --primary-color: #008080; 
+            --surface-color: #1a1a1a; 
+            --text-color: #f0f0f0;    
+            --discount-color: #dc3545; 
+            --success-color: #28a745;
+            --background-color: #000000; 
+            --border-radius: 8px;
+        }
+
+        body { background-color: var(--background-color); }
+        h1, h2, label { color: var(--text-color); }
+        
+        .container { 
+            max-width: 500px; 
+            margin: 20px auto; 
+            padding: 30px; 
+            background: var(--surface-color); 
+            border-radius: var(--border-radius); 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+        }
+
+        /* Form Input Styling for Dark Theme */
+        .checkout-form input:not([type="submit"]), .checkout-form textarea, #quantity, #coupon-code { 
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 20px; 
+            border: 1px solid #555; 
+            background-color: #2b2b2b; /* Darker input background */
+            color: var(--text-color);
+            border-radius: 4px; 
+            box-sizing: border-box;
+        }
+
+        /* Quantity and Coupon Layout */
+        .input-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .input-group > div {
+            flex: 1;
+        }
+        
+        /* Product Summary Section */
+        .product-summary { 
+            background: #333; /* Darker background for summary box */
+            padding: 15px; 
+            border-radius: 4px; 
+            margin-bottom: 20px; 
+            color: var(--text-color);
+        }
+        .product-summary h2 { 
+            margin-top: 0; 
+            font-size: 1.4em; 
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 1.05em;
+        }
+        .summary-total {
+            border-top: 2px solid #555;
+            padding-top: 10px;
+            margin-top: 10px;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #64ffda; /* High contrast for total price */
+        }
+        .summary-discount {
+            color: var(--success-color); /* Green for coupon discount */
+        }
+
+        /* Submit Button */
+        #order-submit { 
+            background-color: var(--success-color); 
+            color: white; 
+            cursor: pointer; 
+            border: none; 
+            font-size: 1.2em; 
+            font-weight: bold;
+            padding: 15px 10px;
+            width: 100%;
+            transition: background-color 0.2s; 
+            border-radius: 4px;
+        }
+        #order-submit:hover { 
+            background-color: #1e7e34; 
+        }
+        #message-area { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-radius: 4px; 
+            text-align: center; 
+            background-color: #2b2b2b;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Final Checkout 📝</h1>
+
+        <form id="checkout-form" class="checkout-form">
+
+            <div class="input-group">
+                <div>
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" value="1" min="1" onchange="updateSummary()" required>
+                </div>
+                <div>
+                    <label for="coupon-code">Coupon Code (Optional):</label>
+                    <input type="text" id="coupon-code" placeholder="25% COD Off" onkeyup="updateSummary()">
+                </div>
+            </div>
+
+            <div class="product-summary">
+                <h2>Order Details</h2>
+                
+                <div class="summary-line">
+                    <span>Product Price (x<span id="summary-quantity">1</span>):</span>
+                    <span id="summary-subtotal">₹0</span>
+                </div>
+                
+                <div class="summary-line">
+                    <span>Cash on Delivery Fee:</span>
+                    <span id="summary-cod-fee">₹0</span>
+                </div>
+
+                <div class="summary-line summary-discount">
+                    <span>Coupon Discount:</span>
+                    <span id="summary-discount">₹0</span>
+                </div>
+                
+                <div class="summary-line summary-total">
+                    <span>Final Total:</span>
+                    <span id="summary-final-total">₹0</span>
+                </div>
+            </div>
+
+            <label for="customerName">Your Full Name:</label>
+            <input type="text" id="customerName" required>
+
+            <label for="customerPhone">Phone Number:</label>
+            <input type="tel" id="customerPhone" required>
+
+            <label for="customerAddress">Shipping Address (Full):</label>
+            <textarea id="customerAddress" rows="4" required></textarea>
+
+            <input type="submit" id="order-submit" value="Place Order (COD)">
+        </form>
+
+        <div id="message-area"></div>
+    </div>
+
+    <script>
+        // =======================================================
+        // CONSTANTS & CONFIGURATION
+        // =======================================================
+        // 🚨 COD Fee: CHANGE THIS VALUE TO SET YOUR FEE 🚨
+        const COD_FEE = 50.00; 
+
+        // Coupon Logic Configuration
+        const COUPON_PREFIX = 'AYSH-';
+        const COUPON_MAX_NUMBER = 20;
+        const COUPON_DISCOUNT_PERCENT = 0.25; // 25% off the COD fee
+
+        // Telegram Credentials (Your unique data)
+        const BOT_TOKEN = "8473515448:AAHrjCeE99WZoWPg1N1oy3lzRadhsKkIcH8";
+        const CHAT_ID = "6258429412"; 
+        const TELEGRAM_API_BASE = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        
+        const form = document.getElementById('checkout-form');
+        const submitButton = document.getElementById('order-submit');
+        const messageArea = document.getElementById('message-area');
+        
+        let BASE_PRICE = 0; // Will be set from URL
+
+        // =======================================================
+        // UTILITIES
+        // =======================================================
+
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name); 
+        }
+
+        function formatPrice(price) {
+            return '₹' + parseFloat(price).toFixed(2).replace(/\.00$/, '');
+        }
+
+        /**
+         * Checks if the coupon matches the pattern AYSH-1 through AYSH-20.
+         */
+        function checkCouponValidity(coupon) {
+            const normalizedCoupon = coupon.toUpperCase();
+
+            // 1. Check if the coupon starts with the correct prefix
+            if (!normalizedCoupon.startsWith(COUPON_PREFIX)) {
+                return false;
+            }
+            
+            // 2. Extract the number part
+            const numberPart = normalizedCoupon.substring(COUPON_PREFIX.length);
+            const couponNumber = parseInt(numberPart, 10);
+            
+            // 3. Check if it's a valid number between 1 and COUPON_MAX_NUMBER (20)
+            if (isNaN(couponNumber) || couponNumber < 1 || couponNumber > COUPON_MAX_NUMBER) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        // =======================================================
+        // PRICE CALCULATION LOGIC
+        // =======================================================
+
+        function updateSummary() {
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            const couponInput = document.getElementById('coupon-code').value.trim().toUpperCase();
+            
+            // 1. Calculate Subtotal
+            const subtotal = BASE_PRICE * quantity;
+
+            // 2. Determine COD Fee and Discount
+            let codFeeApplied = COD_FEE;
+            let couponDiscount = 0.00;
+            let couponUsed = false;
+            
+            if (checkCouponValidity(couponInput)) {
+                // Apply 25% discount to the COD fee
+                couponDiscount = COD_FEE * COUPON_DISCOUNT_PERCENT;
+                codFeeApplied = COD_FEE - couponDiscount;           
+                couponUsed = true;
+            }
+
+            // 3. Calculate Final Total
+            const finalTotal = subtotal + codFeeApplied;
+
+            // 4. Update the DOM
+            document.getElementById('summary-quantity').textContent = quantity;
+            document.getElementById('summary-subtotal').textContent = formatPrice(subtotal);
+            document.getElementById('summary-cod-fee').textContent = formatPrice(codFeeApplied);
+            document.getElementById('summary-discount').textContent = formatPrice(couponDiscount);
+            
+            // Show discount in red/green based on if it was applied
+            const discountElement = document.getElementById('summary-discount').closest('.summary-line');
+            if (couponUsed) {
+                document.getElementById('coupon-code').style.borderColor = 'var(--success-color)';
+                discountElement.style.color = 'var(--success-color)';
+            } else {
+                document.getElementById('coupon-code').style.borderColor = '#555';
+                discountElement.style.color = 'var(--text-color)';
+            }
+
+            document.getElementById('summary-final-total').textContent = formatPrice(finalTotal);
+
+            // Store final price for submission
+            document.getElementById('summary-final-total').dataset.finalPrice = finalTotal.toFixed(2);
+            document.getElementById('summary-cod-fee').dataset.codFee = codFeeApplied.toFixed(2);
+            document.getElementById('summary-subtotal').dataset.subtotal = subtotal.toFixed(2);
+            document.getElementById('summary-discount').dataset.discount = couponDiscount.toFixed(2);
+            document.getElementById('summary-discount').dataset.couponUsed = couponUsed;
+
+        }
+
+        // =======================================================
+        // INITIALIZATION AND SUBMISSION
+        // =======================================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const price = getQueryParameter('price');
+            if (price) {
+                BASE_PRICE = parseFloat(price);
+            }
+            // Set initial quantity to 1
+            document.getElementById('quantity').value = 1;
+
+            // Run initial calculation
+            updateSummary();
+        });
+
+
+        // Handle Form Submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitButton.disabled = true;
+            submitButton.value = 'Sending Order...';
+
+            // Recalculate everything one last time to ensure accuracy
+            updateSummary(); 
+            
+            // Gather final data
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const address = document.getElementById('customerAddress').value;
+            const quantity = document.getElementById('quantity').value;
+            const finalPrice = document.getElementById('summary-final-total').dataset.finalPrice;
+            const codFee = document.getElementById('summary-cod-fee').dataset.codFee;
+            const subtotal = document.getElementById('summary-subtotal').dataset.subtotal;
+            const couponDiscount = document.getElementById('summary-discount').dataset.discount;
+            const couponUsed = document.getElementById('summary-discount').dataset.couponUsed === 'true';
+            const couponCode = document.getElementById('coupon-code').value.trim().toUpperCase();
+
+            const productName = getQueryParameter('name') || 'Unknown Product';
+
+            // 1. Construct the Order Message with all details
+            let messageText = `**🛍️ NEW E-SHOP ORDER**\n\n`;
+            messageText += `*Product:* ${productName}\n`;
+            messageText += `*Quantity:* ${quantity}\n`;
+            messageText += `--------------------------------\n`;
+            messageText += `*Item Subtotal:* ₹${subtotal}\n`;
+            messageText += `*COD Fee:* ₹${codFee}\n`;
+            
+            if (couponUsed) {
+                messageText += `*Coupon Used:* ${couponCode}\n`;
+                messageText += `*Coupon Discount:* -₹${couponDiscount}\n`;
+            } else if (couponCode.length > 0) {
+                 messageText += `*Attempted Coupon:* ${couponCode} (Invalid/Unapplied)\n`;
+            }
+            
+            messageText += `*FINAL PRICE:* **₹${finalPrice}**\n`;
+            messageText += `--------------------------------\n`;
+            messageText += `*Customer:* ${name}\n`;
+            messageText += `*Phone:* ${phone}\n`;
+            messageText += `*Shipping Address:*\n${address}\n`;
+            messageText += `\n*PAYMENT: Cash on Delivery*`;
+
+            const encodedMessage = encodeURIComponent(messageText);
+
+            // 2. Construct the Telegram API URL
+            const finalUrl = `${TELEGRAM_API_BASE}?chat_id=${CHAT_ID}&text=${encodedMessage}&parse_mode=Markdown`;
+
+            // 3. Send the order via fetch
+            fetch(finalUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        messageArea.style.backgroundColor = 'var(--success-color)';
+                        messageArea.style.color = 'white';
+                        messageArea.innerHTML = '✅ **Order Placed Successfully!** We received your order.';
+                        form.reset();
+                    } else {
+                        throw new Error(`Telegram API Error: ${data.description}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error sending order:', error);
+                    messageArea.style.backgroundColor = 'var(--discount-color)';
+                    messageArea.style.color = 'white';
+                    messageArea.innerHTML = `❌ **Error Placing Order:** Failed to send to Telegram.`;
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                        submitButton.value = 'Place Order (COD)';
+                    }, 2000);
+                });
+        });
+    </script>
+</body>
+</html>
