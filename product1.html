@@ -6,59 +6,111 @@
     <title>FairGlow Cream Detail | Cartly</title>
     <link rel="stylesheet" href="style.css"> 
     <style>
-        /* Detail Page Container Styles (Responsive Flex Layout) */
+        /* Define Dark Theme Variables (Assuming your main style.css sets them, but redefining here for clarity) */
+        :root {
+            /* Assuming these colors from your previous dark theme steps */
+            --primary-color: #008080; /* Dark Teal/Green Accent */
+            --surface-color: #1a1a1a; /* Dark Card Background */
+            --text-color: #f0f0f0;    /* Light Text */
+            --discount-color: #dc3545; /* Red */
+            --background-color: #000000; /* Black Body Background */
+            --border-radius: 8px;
+        }
+        
+        /* Apply Dark Body Background */
+        body {
+            background-color: var(--background-color); 
+        }
+
+        /* Detail Page Container Styles (Mobile-First Layout) */
         .detail-container { 
             max-width: 900px; 
-            margin: 20px auto; /* Reduced top margin for mobile */
+            /* On mobile, this will be centered with padding */
+            margin: 20px auto; 
             padding: 20px; 
-            background: var(--surface-color); 
-            color: var(--text-color); 
+            background: var(--surface-color); /* Dark Card Background */
+            color: var(--text-color); /* Light Text */
             border-radius: var(--border-radius); 
-            box-shadow: var(--shadow); 
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Stronger shadow for dark theme */
             display: flex; 
             flex-wrap: wrap; 
             gap: 30px; 
         }
+
+        /* 🚨 Mobile Responsive Adjustment for Image Section 🚨 */
         .detail-image-section { 
-            flex: 1; 
-            min-width: 300px; 
-            max-width: 45%; /* Optimal width for desktop */
+            flex: 1 1 100%; /* Important: Take full width on small screens */
             position: relative; 
+            max-width: 100%; 
+            min-width: unset;
         }
+
         .detail-info { 
-            flex: 2; 
-            min-width: 300px; 
+            flex: 2 1 100%; /* Important: Take full width on small screens */
+            min-width: unset;
+            text-align: center; /* Center text for clean mobile look */
         }
-        .product-features { 
-            list-style: disc inside; 
-            margin-left: 20px; 
-            margin-top: 10px;
-        }
-        .product-features li { 
-            margin-bottom: 8px; 
-            font-size: 1.1em; 
-        }
+
+        /* Text and Price Styling */
+        h1 { font-size: 1.8em; margin-bottom: 5px; }
+        h2 { font-size: 1.4em; margin-top: 20px; text-decoration: underline; text-decoration-color: var(--primary-color); }
         .price-large { 
-            font-size: 2em; 
+            font-size: 2.2em; 
             font-weight: bold; 
-            color: var(--primary-color); 
-            margin-top: 10px; 
+            color: var(--primary-color); /* Dark Green Selling Price */
+            margin-top: 5px; 
+            display: block; /* Ensure it's on its own line */
+        }
+        .original-price-label { 
+            font-size: 0.9em; 
+            color: #ccc; /* Muted light color */
+            display: block;
         }
         .cut-off-price-red { 
             text-decoration: line-through; 
-            color: var(--discount-color); 
-            font-size: 0.9em; 
-            margin-left: 10px;
+            color: var(--discount-color); /* Red Cut-off Price */
+            font-size: 1em; 
         }
-        h1, h2, h3, p { color: var(--text-color); }
 
-        /* Image Gallery Styles */
+        /* Feature List Styling */
+        .product-features { 
+            list-style: disc inside; 
+            text-align: left; /* Keep bullet points left-aligned */
+            margin: 10px auto; 
+            padding-left: 0;
+            max-width: 300px; /* Constrain list width for clean center look */
+        }
+        .product-features li { 
+            margin-bottom: 8px; 
+            font-size: 1em; 
+        }
+
+        /* Buy Button Styling (Using a distinct color for high contrast) */
+        .buy-button {
+            display: block;
+            width: 90%; 
+            max-width: 350px;
+            margin: 15px auto 0;
+            padding: 18px 0;
+            text-align: center;
+            background-color: #64ffda; /* Bright contrast color for high visibility */
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            font-size: 1.2em;
+            transition: background-color 0.2s;
+        }
+        .buy-button:hover { background-color: #4df4c9; }
+
+
+        /* ------------------ Image Gallery Styles ------------------ */
         .image-gallery {
             position: relative;
             width: 100%;
-            padding-top: 100%; /* 1:1 aspect ratio */
+            padding-top: 100%; 
             overflow: hidden;
-            background-color: white; 
+            background-color: #fff; /* White background for image visibility */
             border-radius: var(--border-radius);
         }
         .image-gallery input[type="radio"] { display: none; }
@@ -77,86 +129,66 @@
             object-fit: contain;
             padding: 10px;
         }
+        .offer-tag {
+            position: absolute; 
+            top: 10px;
+            left: 0;
+            background-color: var(--discount-color); /* Red */
+            color: white;
+            padding: 5px 10px;
+            border-radius: 0 4px 4px 0;
+            z-index: 15; 
+            font-size: 0.9em;
+        }
         
-        /* 🚨 Arrow Navigation Styles 🚨 */
+        /* Arrow Navigation Styles */
         .arrow-nav-left, .arrow-nav-right {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             z-index: 20;
-            cursor: pointer;
-            pointer-events: none; /* Allows clicks to pass through to the control labels */
-            display: block; 
+            pointer-events: none; 
         }
-
-        /* Styling for the arrow buttons */
         .arrow-button {
-            width: 40px; 
-            height: 40px;
-            text-align: center;
-            line-height: 40px;
-            background-color: rgba(0, 0, 0, 0.7);
+            width: 45px; /* Slightly larger buttons */
+            height: 45px;
+            line-height: 45px;
+            background-color: rgba(0, 0, 0, 0.6);
             color: white;
             border-radius: 50%;
-            font-size: 1.5em;
-            font-weight: bold;
-            transition: background-color 0.2s;
-            pointer-events: all; /* Make arrow clickable */
-            user-select: none; 
-            display: block; 
+            font-size: 1.8em;
+            pointer-events: all; 
         }
-        .arrow-button:hover { background-color: var(--primary-color); }
-
         .arrow-nav-left { left: 10px; }
         .arrow-nav-right { right: 10px; }
 
-        /* Navigation logic (controls the sliding transition) */
+        /* Slide Transition Logic */
         #img-1:checked ~ .gallery-images { transform: translateX(0); }
         #img-2:checked ~ .gallery-images { transform: translateX(-33.333%); }
         #img-3:checked ~ .gallery-images { transform: translateX(-66.666%); }
 
-        /* ARROW VISIBILITY LOGIC (Only two functional buttons visible) */
-        .arrow-nav-left .arrow-button { display: none; }
+        /* ARROW VISIBILITY LOGIC (Ensuring only two are visible and functional) */
+        .arrow-nav-left .arrow-button, 
         .arrow-nav-right .arrow-button { display: none; }
 
-        /* SLIDE 1: Hide Previous, Show Next (Slide 2) */
+        /* SLIDE 1 */
         #img-1:checked ~ .arrow-nav-right .arrow-button[for="img-2"] { display: block; }
         
-        /* SLIDE 2: Show Previous (Slide 1), Show Next (Slide 3) */
+        /* SLIDE 2 */
         #img-2:checked ~ .arrow-nav-left .arrow-button[for="img-1"] { display: block; }
         #img-2:checked ~ .arrow-nav-right .arrow-button[for="img-3"] { display: block; }
 
-        /* SLIDE 3: Show Previous (Slide 2), Hide Next */
+        /* SLIDE 3 */
         #img-3:checked ~ .arrow-nav-left .arrow-button[for="img-2"] { display: block; }
 
-
-        .image-gallery .offer-tag {
-            position: absolute; 
-            top: 10px;
-            left: 0;
-            z-index: 15; 
-        }
-
-        /* 🚨 FINAL MOBILE ADJUSTMENTS 🚨 */
-        @media (max-width: 768px) {
-            .detail-container { 
-                flex-direction: column; 
-                align-items: center; 
-                margin: 10px; 
-                padding: 15px; 
+        /* Desktop Specific Adjustments (Reversing the mobile-first flex settings) */
+        @media (min-width: 769px) {
+            .detail-info {
+                text-align: left; /* Align text left on wider screens */
             }
-            .detail-image-section { 
-                max-width: 100%; 
-                min-width: unset; 
-            }
-            .detail-info { 
-                text-align: center; 
-                min-width: unset;
-            }
-            .product-features { 
-                text-align: left; 
-                margin: 10px auto; 
-                max-width: 90%; 
+            .product-features {
+                margin-left: 20px;
+                max-width: unset;
             }
         }
     </style>
@@ -190,10 +222,10 @@
 
         <div class="detail-info">
             <h1>FairGlow Cream</h1>
-            <p>
+            <p class="original-price-label">
                 Original Price: <span class="cut-off-price-red">₹299</span>
-                <span class="price-large">₹199</span>
             </p>
+            <span class="price-large">₹199</span>
 
             <h2>Key Features:</h2>
             <ul class="product-features">
@@ -203,7 +235,7 @@
             </ul>
 
             <h2 style="margin-top: 30px;">Order Now:</h2>
-            <a href="checkout.html?name=FairGlow+Cream&price=199" class="buy-button" style="padding: 15px; font-size: 1.2em;">
+            <a href="checkout.html?name=FairGlow+Cream&price=199" class="buy-button">
                 Buy Now - ₹199 (Cash on Delivery)
             </a>
         </div>
