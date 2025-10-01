@@ -1,0 +1,268 @@
+/* General Reset and Font */
+:root {
+    /* 🚨 NEW DARK THEME COLORS 🚨 */
+    --primary-color: #75ffe8; /* Bold Dark Green (Accent & Buttons) */
+    --secondary-color: #1a1a1a; /* Near-Black Background */
+    --surface-color: #2e2e2e; /* Card/Box Surface Color */
+    --success-color: #4caf50; /* Brighter Green for Success */
+    --discount-color: #ff7043; /* Contrasting Orange for Sale Tags */
+    --text-color: #f0f0f0; /* Light Gray/White Text */
+    --border-radius: 8px; 
+    --shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Deeper shadow for elevation on dark background */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--secondary-color); /* Black background */
+    color: var(--text-color); /* Light text */
+    padding: 20px 10px;
+}
+
+/* =========================== */
+/* LOGO STYLING (Cartly)       */
+/* =========================== */
+#shop-name {
+    font-family: 'Rajdhani', sans-serif; 
+    font-size: 2.8em; 
+    font-weight: 700;
+    letter-spacing: 5px; 
+    text-transform: uppercase;
+    color: var(--primary-color); /* Dark Green logo */
+    padding: 10px 0;
+    transition: color 0.3s ease;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: var(--surface-color); /* Dark Surface for Header */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    max-width: 1200px;
+    margin: 0 auto 30px;
+}
+
+header p {
+    color: #bdbdbd; /* Lighter gray for secondary text */
+    font-size: 0.9em;
+}
+
+/* =========================== */
+/* Product List Container      */
+/* =========================== */
+#product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* =========================== */
+/* Product Card Styling        */
+/* =========================== */
+.product-card {
+    background-color: var(--surface-color); /* Dark Surface for Cards */
+    color: var(--text-color); /* Ensure text is light on cards */
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0; 
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Image Container */
+.card-image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 75%; 
+    overflow: hidden;
+    background-color: #fff; /* Ensure image area is light to contrast product images */
+}
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+}
+
+.card-details {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-short-info {
+    font-size: 0.85em;
+    color: #9e9e9e; /* Muted color for short info */
+    margin-bottom: 10px;
+}
+
+/* Price Section */
+.price-section {
+    margin-top: auto; 
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 1.5em; 
+    font-weight: 700;
+    color: var(--text-color);
+    margin-right: 10px;
+}
+
+.cut-off-price {
+    font-size: 0.9em;
+    color: #757575; /* Darker gray for cut-off price */
+    text-decoration: line-through;
+}
+
+/* Offer Tag */
+.offer-tag {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    background-color: var(--discount-color); /* Contrasting orange/red */
+    color: white;
+    padding: 3px 8px;
+    font-size: 0.75em;
+    font-weight: 700;
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    z-index: 10;
+}
+
+/* Button */
+.buy-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    background-color: var(--primary-color); /* Dark Green Button */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.buy-button:hover {
+    background-color: #00796b; /* Slightly lighter green on hover */
+}
+
+.buy-button:active {
+    transform: scale(0.98);
+}
+
+/* Loading and Error Messages */
+.loading, .error {
+    grid-column: 1 / -1; 
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2em;
+    color: var(--primary-color); /* Dark green accent for loading */
+}
+
+.error {
+    color: var(--discount-color);
+}
+
+/* =========================== */
+/* Checkout Page Specific      */
+/* =========================== */
+.container { 
+    max-width: 500px; 
+    margin: 40px auto; 
+    padding: 30px; 
+    background: var(--surface-color); /* Dark surface */
+    border-radius: var(--border-radius); 
+    box-shadow: var(--shadow); 
+}
+.checkout-form label { 
+    display: block; 
+    margin-bottom: 5px; 
+    font-weight: 600; 
+    color: var(--text-color);
+}
+.checkout-form input, .checkout-form textarea { 
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 20px; 
+    border: 1px solid #444; /* Darker border */
+    border-radius: 4px; 
+    background-color: #333; /* Darker input background */
+    color: var(--text-color);
+}
+.product-summary { 
+    background: #000; /* Pure black for contrast */
+    padding: 15px; 
+    border-radius: 4px; 
+    margin-bottom: 20px; 
+}
+.product-summary h2 { 
+    margin-top: 0; 
+    font-size: 1.3em; 
+}
+#order-submit { 
+    background-color: var(--success-color); 
+    color: white; 
+    cursor: pointer; 
+    border: none; 
+    font-size: 1.1em; 
+    padding: 15px;
+    transition: background-color 0.2s; 
+    border-radius: 4px; 
+}
+#order-submit:hover { 
+    background-color: #1b5e20; 
+}
+#message-area { 
+    margin-top: 20px; 
+    padding: 10px; 
+    border-radius: 4px; 
+    text-align: center; 
+}
+
+/* =========================== */
+/* MOBILE OPTIMIZATION         */
+/* =========================== */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    #shop-name {
+        font-size: 2em;
+        letter-spacing: 3px;
+    }
+
+    .container {
+        margin: 20px 10px;
+        padding: 20px;
+    }
+}
