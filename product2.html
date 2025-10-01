@@ -44,13 +44,13 @@
             color: var(--primary-color); 
             margin-top: 10px; 
         }
-        .cut-off-price-red { /* Red Cut-Off Price */
+        .cut-off-price-red { 
             text-decoration: line-through; 
             color: var(--discount-color); 
             font-size: 0.9em; 
             margin-left: 10px;
         }
-        h1, h2, h3, p { color: var(--text-color); } /* Ensure text is visible */
+        h1, h2, h3, p { color: var(--text-color); }
 
         /* Image Gallery Styles */
         .image-gallery {
@@ -80,31 +80,26 @@
         }
         .gallery-nav {
             position: absolute; 
-            bottom: 10px;
+            bottom: -50px; 
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 8px;
+            gap: 15px; 
             z-index: 20;
         }
         .gallery-nav label {
-            width: 40px; 
-            height: 40px;
-            border-radius: var(--border-radius);
-            background-color: #ccc; 
+            padding: 5px 10px;
+            font-size: 1em;
+            font-weight: bold;
+            color: var(--text-color); 
+            background-color: var(--surface-color);
+            border-radius: 4px;
             cursor: pointer;
             border: 2px solid transparent;
-            transition: border-color 0.2s ease;
-            overflow: hidden;
-            display: block; 
+            transition: background-color 0.2s, border-color 0.2s;
+            text-align: center;
         }
-        .gallery-nav label img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            border-radius: var(--border-radius);
-        }
-        .gallery-nav label:hover { border-color: #999; }
+        .gallery-nav label:hover { background-color: #444; }
         
         #img-1:checked ~ .gallery-images { transform: translateX(0); }
         #img-2:checked ~ .gallery-images { transform: translateX(-33.333%); }
@@ -112,7 +107,11 @@
         
         #img-1:checked ~ .gallery-nav label:nth-child(1),
         #img-2:checked ~ .gallery-nav label:nth-child(2),
-        #img-3:checked ~ .gallery-nav label:nth-child(3) { border-color: var(--primary-color); }
+        #img-3:checked ~ .gallery-nav label:nth-child(3) {
+            background-color: var(--primary-color); 
+            border-color: var(--text-color);
+            color: white;
+        }
 
         .image-gallery .offer-tag {
             position: absolute; 
@@ -145,12 +144,12 @@
                 </div>
                 
                 <div class="offer-tag">40% OFF</div> 
-
-                <div class="gallery-nav">
-                    <label for="img-1"><img src="p2-1-thumb.jpg" alt="Thumb 1"></label>
-                    <label for="img-2"><img src="p2-2-thumb.jpg" alt="Thumb 2"></label>
-                    <label for="img-3"><img src="p2-3-thumb.jpg" alt="Thumb 3"></label>
-                </div>
+            </div>
+            
+            <div class="gallery-nav">
+                <label for="img-1">Image 1</label>
+                <label for="img-2">Image 2</label>
+                <label for="img-3">Image 3</label>
             </div>
         </div>
 
