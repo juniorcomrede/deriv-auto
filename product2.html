@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AloeVera Gel Detail | Cartly</title>
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* Detail Page Container Styles (Copied from product1.html's style block) */
+        .detail-container { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background: var(--surface-color); 
+            color: var(--text-color); 
+            border-radius: var(--border-radius); 
+            box-shadow: var(--shadow); 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 30px; 
+        }
+        .detail-image-section { 
+            flex: 1; 
+            min-width: 300px; 
+            max-width: 45%; 
+            position: relative; 
+        }
+        .detail-info { 
+            flex: 2; 
+            min-width: 300px; 
+        }
+        .product-features { 
+            list-style: disc inside; 
+            margin-left: 20px; 
+            margin-top: 10px;
+        }
+        .product-features li { 
+            margin-bottom: 8px; 
+            font-size: 1.1em; 
+        }
+        .price-large { 
+            font-size: 2em; 
+            font-weight: bold; 
+            color: var(--primary-color); 
+            margin-top: 10px; 
+        }
+        .cut-off-price-red { /* Red Cut-Off Price */
+            text-decoration: line-through; 
+            color: var(--discount-color); 
+            font-size: 0.9em; 
+            margin-left: 10px;
+        }
+        h1, h2, h3, p { color: var(--text-color); } /* Ensure text is visible */
+
+        /* Image Gallery Styles */
+        .image-gallery {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; 
+            overflow: hidden;
+            background-color: white; 
+            border-radius: var(--border-radius);
+            margin-bottom: 15px; 
+        }
+        .image-gallery input[type="radio"] { display: none; }
+        .gallery-images {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%; 
+            height: 100%;
+            display: flex;
+            transition: transform 0.3s ease-in-out; 
+        }
+        .gallery-images img {
+            width: calc(100% / 3); 
+            height: 100%;
+            object-fit: contain;
+            padding: 10px;
+        }
+        .gallery-nav {
+            position: absolute; 
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 20;
+        }
+        .gallery-nav label {
+            width: 40px; 
+            height: 40px;
+            border-radius: var(--border-radius);
+            background-color: #ccc; 
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease;
+            overflow: hidden;
+            display: block; 
+        }
+        .gallery-nav label img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            border-radius: var(--border-radius);
+        }
+        .gallery-nav label:hover { border-color: #999; }
+        
+        #img-1:checked ~ .gallery-images { transform: translateX(0); }
+        #img-2:checked ~ .gallery-images { transform: translateX(-33.333%); }
+        #img-3:checked ~ .gallery-images { transform: translateX(-66.666%); }
+        
+        #img-1:checked ~ .gallery-nav label:nth-child(1),
+        #img-2:checked ~ .gallery-nav label:nth-child(2),
+        #img-3:checked ~ .gallery-nav label:nth-child(3) { border-color: var(--primary-color); }
+
+        .image-gallery .offer-tag {
+            position: absolute; 
+            top: 10px;
+            left: 0;
+            z-index: 15; 
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .detail-container { flex-direction: column; align-items: center; }
+            .detail-image-section { max-width: 90%; min-width: unset; }
+            .detail-info { text-align: center; }
+            .product-features { text-align: left; margin: 10px auto; max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="detail-container">
+        <div class="detail-image-section">
+            <div class="image-gallery">
+                <input type="radio" name="image-select" id="img-1" checked>
+                <input type="radio" name="image-select" id="img-2">
+                <input type="radio" name="image-select" id="img-3">
+
+                <div class="gallery-images">
+                    <img src="p2-1.jpg" alt="AloeVera Gel - View 1">
+                    <img src="p2-2.jpg" alt="AloeVera Gel - View 2">
+                    <img src="p2-3.jpg" alt="AloeVera Gel - View 3">
+                </div>
+                
+                <div class="offer-tag">40% OFF</div> 
+
+                <div class="gallery-nav">
+                    <label for="img-1"><img src="p2-1-thumb.jpg" alt="Thumb 1"></label>
+                    <label for="img-2"><img src="p2-2-thumb.jpg" alt="Thumb 2"></label>
+                    <label for="img-3"><img src="p2-3-thumb.jpg" alt="Thumb 3"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-info">
+            <h1>AloeVera Gel</h1>
+            <p>
+                Original Price: <span class="cut-off-price-red">₹249</span>
+                <span class="price-large">₹149</span>
+            </p>
+
+            <h2>Key Features:</h2>
+            <ul class="product-features">
+                <li>Soothes skin, reducing redness and irritation.</li>
+                <li>Provides intense hydration without a greasy feel.</li>
+                <li>Natural cooling properties for sunburn relief.</li>
+                <li>Perfect primer for makeup.</li>
+            </ul>
+
+            <h2 style="margin-top: 30px;">Order Now:</h2>
+            <a href="checkout.html?name=AloeVera+Gel&price=149" class="buy-button" style="padding: 15px; font-size: 1.2em;">
+                Buy Now - ₹149 (Cash on Delivery)
+            </a>
+        </div>
+    </div>
+</body>
+</html>

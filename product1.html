@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FairGlow Cream Detail | Cartly</title>
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* Detail Page Container Styles */
+        .detail-container { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background: var(--surface-color); 
+            color: var(--text-color); 
+            border-radius: var(--border-radius); 
+            box-shadow: var(--shadow); 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 30px; 
+        }
+        .detail-image-section { /* New container for image gallery */
+            flex: 1; 
+            min-width: 300px; /* Minimum width to prevent gallery distortion */
+            max-width: 45%; /* Adjusted for gallery layout */
+            position: relative; 
+        }
+        .detail-info { 
+            flex: 2; 
+            min-width: 300px; 
+        }
+        .product-features { 
+            list-style: disc inside; 
+            margin-left: 20px; 
+            margin-top: 10px;
+        }
+        .product-features li { 
+            margin-bottom: 8px; 
+            font-size: 1.1em; 
+        }
+        .price-large { 
+            font-size: 2em; 
+            font-weight: bold; 
+            color: var(--primary-color); 
+            margin-top: 10px; 
+        }
+        /* 🚨 New: Red Cut-Off Price */
+        .cut-off-price-red {
+            text-decoration: line-through; 
+            color: var(--discount-color); /* Use the red/orange discount color */
+            font-size: 0.9em; /* Make it slightly smaller */
+            margin-left: 10px;
+        }
+        h1, h2, h3, p { /* Ensure all text is visible on dark background */
+            color: var(--text-color);
+        }
+
+        /* Image Gallery Styles */
+        .image-gallery {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* 1:1 aspect ratio for the main image area */
+            overflow: hidden;
+            background-color: white; /* Light background for images */
+            border-radius: var(--border-radius);
+            margin-bottom: 15px; /* Space between main image and thumbnails */
+        }
+        .image-gallery input[type="radio"] {
+            display: none; /* Hide radio buttons */
+        }
+        .gallery-images {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%; /* 3 images x 100% width */
+            height: 100%;
+            display: flex;
+            transition: transform 0.3s ease-in-out; /* Smooth slide transition */
+        }
+        .gallery-images img {
+            width: calc(100% / 3); /* Each image takes 1/3 of the gallery-images width */
+            height: 100%;
+            object-fit: contain;
+            padding: 10px;
+        }
+        .gallery-nav {
+            position: absolute; /* Navigation buttons at the bottom */
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 20;
+        }
+        .gallery-nav label {
+            width: 40px; /* Thumbnail size */
+            height: 40px;
+            border-radius: var(--border-radius);
+            background-color: #ccc; /* Placeholder background */
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease;
+            overflow: hidden;
+            display: block; /* Make label a block element for image */
+        }
+        .gallery-nav label img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the thumbnail area */
+            border-radius: var(--border-radius);
+        }
+        .gallery-nav label:hover {
+            border-color: #999;
+        }
+        
+        /* Radio button checked state controls */
+        #img-1:checked ~ .gallery-images { transform: translateX(0); }
+        #img-2:checked ~ .gallery-images { transform: translateX(-33.333%); }
+        #img-3:checked ~ .gallery-images { transform: translateX(-66.666%); }
+        
+        #img-1:checked ~ .gallery-nav label:nth-child(1),
+        #img-2:checked ~ .gallery-nav label:nth-child(2),
+        #img-3:checked ~ .gallery-nav label:nth-child(3) {
+            border-color: var(--primary-color); /* Highlight active thumbnail */
+        }
+
+        /* Offer tag positioning for detail page */
+        .image-gallery .offer-tag {
+            position: absolute; 
+            top: 10px;
+            left: 0;
+            z-index: 15; /* Higher z-index to be above images */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .detail-container { flex-direction: column; align-items: center; }
+            .detail-image-section { max-width: 90%; min-width: unset; } /* Allow image section to shrink */
+            .detail-info { text-align: center; }
+            .product-features { text-align: left; margin: 10px auto; max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="detail-container">
+        <div class="detail-image-section">
+            <div class="image-gallery">
+                <input type="radio" name="image-select" id="img-1" checked>
+                <input type="radio" name="image-select" id="img-2">
+                <input type="radio" name="image-select" id="img-3">
+
+                <div class="gallery-images">
+                    <img src="p1-1.jpg" alt="FairGlow Cream - View 1">
+                    <img src="p1-2.jpg" alt="FairGlow Cream - View 2">
+                    <img src="p1-3.jpg" alt="FairGlow Cream - View 3">
+                </div>
+                
+                <div class="offer-tag">30% OFF</div> 
+
+                <div class="gallery-nav">
+                    <label for="img-1"><img src="p1-1-thumb.jpg" alt="Thumb 1"></label>
+                    <label for="img-2"><img src="p1-2-thumb.jpg" alt="Thumb 2"></label>
+                    <label for="img-3"><img src="p1-3-thumb.jpg" alt="Thumb 3"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-info">
+            <h1>FairGlow Cream</h1>
+            <p>
+                Original Price: <span class="cut-off-price-red">₹299</span>
+                <span class="price-large">₹199</span>
+            </p>
+
+            <h2>Key Features:</h2>
+            <ul class="product-features">
+                <li>Brightens skin complexion instantly.</li>
+                <li>Reduces dark spots over time.</li>
+                <li>Moisturizes and protects against pollution.</li>
+            </ul>
+
+            <h2 style="margin-top: 30px;">Order Now:</h2>
+            <a href="checkout.html?name=FairGlow+Cream&price=199" class="buy-button" style="padding: 15px; font-size: 1.2em;">
+                Buy Now - ₹199 (Cash on Delivery)
+            </a>
+        </div>
+    </div>
+</body>
+</html>
