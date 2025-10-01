@@ -42,6 +42,11 @@
             border-radius: 4px; 
             box-sizing: border-box;
         }
+        /* Style for invalid input */
+        .checkout-form input:invalid:focus {
+            border-color: var(--discount-color);
+            box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+        }
 
         /* Quantity and Coupon Layout */
         .input-group {
@@ -113,7 +118,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>Final Checkout 📝</h1>
+        <h2>Final Checkout</h2>
+        <br>
+        <BR>
 
         <form id="checkout-form" class="checkout-form">
 
@@ -124,7 +131,7 @@
                 </div>
                 <div>
                     <label for="coupon-code">Coupon Code (Optional):</label>
-                    <input type="text" id="coupon-code" placeholder="25% COD Off" onkeyup="updateSummary()">
+                    <input type="text" id="coupon-code" placeholder="AYSH-1 to AYSH-20 for 25% COD Off" onkeyup="updateSummary()">
                 </div>
             </div>
 
@@ -155,11 +162,16 @@
             <label for="customerName">Your Full Name:</label>
             <input type="text" id="customerName" required>
 
-            <label for="customerPhone">Phone Number:</label>
-            <input type="tel" id="customerPhone" required>
+            <label for="customerPhone">Phone Number (10 Digits):</label>
+            <input type="tel" id="customerPhone" pattern="[0-9]{10}" title="Phone number must be exactly 10 digits" required>
 
             <label for="customerAddress">Shipping Address (Full):</label>
-            <textarea id="customerAddress" rows="4" required></textarea>
+            <textarea 
+                id="customerAddress" 
+                rows="4" 
+                placeholder="Ex: House/Flat No, Street/Locality, City, State, Pincode" 
+                required
+            ></textarea>
 
             <input type="submit" id="order-submit" value="Place Order (COD)">
         </form>
@@ -299,6 +311,13 @@
         // Handle Form Submission
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Check HTML5 validity manually before proceeding
+            if (!form.checkValidity()) {
+                // This triggers the browser's built-in error messages for the phone pattern
+                return;
+            }
+
             submitButton.disabled = true;
             submitButton.value = 'Sending Order...';
 
@@ -369,6 +388,8 @@
                     setTimeout(() => {
                         submitButton.disabled = false;
                         submitButton.value = 'Place Order (COD)';
+                        // Re-run summary after reset to ensure correct prices are displayed
+                        updateSummary(); 
                     }, 2000);
                 });
         });
